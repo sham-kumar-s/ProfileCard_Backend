@@ -3,16 +3,19 @@ import mongoose from "mongoose";
 import cors from "cors"
 import dotenv from "dotenv"
 import cards from "./routes/cards.js"
+import path from "path";
 
 
 dotenv.config()
 
 const app = express()
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 app.use(express.json())
 app.use(cors())
 
 app.use(express.urlencoded({extended:true}))
+
 app.use(cards)
 
 const uri = process.env.MONGODB_URI
